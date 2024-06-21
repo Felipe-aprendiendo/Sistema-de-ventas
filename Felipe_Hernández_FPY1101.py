@@ -161,10 +161,24 @@ Total                                         ${round(venta['total'])}
     if not boleta_encontrado:
         print(f"No hay datos de venta asociados al cliente'{boleta_cliente}', por lo que no es posible generar la boleta")
 
+def salir():
+    while True:
+        try:
+            opcion = input("\n¿Está seguro de que desea salir? (1:sí - 2:no)")
+            if opcion == 1:
+                print("Gracias por su preferencia")
+                return True
+            elif opcion == 2:
+                print("Puede continuar operando")
+                return False
+            else:
+                print("Por favor ingrese una opción válida (1:sí - 2:no)")
+        except ValueError:
+            print("Entrada inválida. Por favor ingrese 1 o 2")
+
 
 while True:
     opcion = menu()
-
     if opcion == 1:
         registrar()
     elif opcion == 2:
@@ -178,16 +192,7 @@ while True:
     elif opcion == 6:
         generar_boleta()
     elif opcion == 7:
-        try:
-            salir = int(input("\n¿Está seguro de que desea salir? (1:si - 2:no)"))
-            if salir == 1:
-                print("Gracias por su preferencia")
-                break
-            else:
-                print("Puede continuar operando")
-        
-            if salir not in [1, 2]:
-                raise ValueError("Por favor ingrese una opción válida (1:si - 2:no)")
+        if salir():
             break
-        except ValueError as e:
-            print(e)
+    else:
+        print("Opción no reconocida, por favor seleccione una opción entre 1 y 7")
